@@ -126,6 +126,7 @@ for pixelcolumn in pixelcolumns:
                     str(startdate.year) + '-' + str(startdate.month) + '-' + str(startdate.day) + 'T00:00:' + str(commit)
                 print(command)
                 os.system(command)
+            startdate += timedelta(1)
 printunicode(artpixelrows)
 
 print(startdate)
