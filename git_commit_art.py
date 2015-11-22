@@ -123,7 +123,7 @@ for pixelcolumn in pixelcolumns:
                     f.write('*')
                 command = \
                     'git commit -am "' + commitmessage + '" --date ' +\
-                    str(startdate.year) + '-' + str(startdate.month) + '-' + str(startdate.day) + '00:00:' + str(commit)
+                    str(startdate.year) + '-' + str(startdate.month) + '-' + str(startdate.day) + 'T00:00:' + str(commit)
                 print(command)
                 os.system(command)
 printunicode(artpixelrows)
