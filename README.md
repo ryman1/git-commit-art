@@ -11,6 +11,7 @@ Before running the program, be sure to update the "gitemail" setting in **config
 Once **git-commit-art.py** has been run, a folder called 'project' is created which houses the local git repository and the project file which is repeatedly updated to create new commits.
 
 To display the resulting graph on Github:
+
 1. Create a new repo on github (preferably with a throwaway account to avoid interfering with your primary account's stats).
 
 2. cd to the 'project' directory and run `git remote add origin [url to your new github repo]`
