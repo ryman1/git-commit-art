@@ -4,6 +4,7 @@ Creates a series of commits that can display pixel art in a github contributions
 **Requirements:** 
 - Python 3
 - pypng - `pip install pypng`
+- git in PATH
 
 Before running the program, be sure to update the "gitemail" setting in **config.json** to match the address of the owner of the github repo (see below).
  
