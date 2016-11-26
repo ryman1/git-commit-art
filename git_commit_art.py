@@ -68,7 +68,7 @@ def printunicode(pixelrows):
 def colortocommitcount(pix):
     """
     Convert the git commit colors to numbers used to represent
-    the number of daily commits will create that color.
+    the number of daily commits which will create that color.
     """
     if pix == (214, 230, 133):
         commitcount = 1
@@ -99,8 +99,9 @@ except FileExistsError:
     pass
 os.chdir(config['gitprojectdir'])
 open('projectfile', 'a').close()
-os.system('git init; git add projectfile')
-
+os.system('git init')
+os.system('git config user.email ' + config['gitemail'])
+os.system('git add projectfile')
 
 # Determine the commit start date (53 weeks before next closest sunday).
 # Github displays 53 up to weeks worth of commits on the contributions graph.
@@ -112,21 +113,19 @@ else:
     sunday = datetime.now()
 startdate = sunday - timedelta(371)
 
+# Go through each day in a column (week) and generate commits to produced the appropriate pixel colors.
 for pixelcolumn in pixelcolumns:
     response = urllib.request.urlopen('http://whatthecommit.com/index.txt')
     commitmessage = response.read().decode('utf-8').rstrip()
-    for dayoftheweek in range(7):
-        for pixel in pixelcolumn:
-            commitnum = colortocommitcount(pixel)
-            for commit in range(commitnum):
-                with open('projectfile', 'a') as f:
-                    f.write('*')
-                command = \
-                    'git commit -am "' + commitmessage + '" --date ' +\
-                    str(startdate.year) + '-' + str(startdate.month) + '-' + str(startdate.day) + 'T00:00:' + str(commit)
-                print(command)
-                os.system(command)
-            startdate += timedelta(1)
+    for pixel in pixelcolumn:
+        commitnum = colortocommitcount(pixel)
+        for commit in range(commitnum):
+            with open('projectfile', 'a') as f:
+                f.write('*')
+            command = \
+                'git commit -am "' + commitmessage + '" --date ' +\
+                str(startdate.year) + '-' + str(startdate.month) + '-' + str(startdate.day) + 'T00:00:' + str(commit)
+            print(command)
+            os.system(command)
+        startdate += timedelta(1)
 printunicode(artpixelrows)
-
-print(startdate)
